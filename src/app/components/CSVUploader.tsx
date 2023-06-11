@@ -1,6 +1,9 @@
 'use client'
 import React, {useState, useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
+import { TestAPI } from './services/TestAPI';
+
+const API_URL = 'https://localhost:7165/';
 
 const CSVUploader = () => {
 
@@ -28,8 +31,12 @@ const CSVUploader = () => {
         alert('we want to send the data to the backend here...and move this to services folder');
     }
 
-    const testService = () => {
-        alert('we want to test the calling the API service here');
+    const testService = async ()  => {
+        let response = await TestAPI();
+        if (response)
+            alert(response.data);
+        else    
+            alert('ERROR: no response');
     }
 
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})

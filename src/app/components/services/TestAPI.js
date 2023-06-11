@@ -1,5 +1,13 @@
+import axios from 'axios';
 
-export const TestAPI = () => {
-    //return axios.get('http://localhost:5000/api/test');
-    return "Test API not implemented";
+export const TestAPI = async () => {
+    try {
+        return await axios.get('https://localhost:7165', {
+            responseType: 'text'
+          });
+    }
+    catch (error) {
+        alert('Error in TestAPI.js: ' + error);
+        console.error(error);
+    }
 }
