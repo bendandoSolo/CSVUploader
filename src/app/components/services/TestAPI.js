@@ -1,8 +1,8 @@
 import axios from 'axios';
 
-export const TestAPI = async () => {
+export const TestAPI = async ({URL}) => {
     try {
-        return await axios.get('https://localhost:7165', {
+        return await axios.get(URL, {
             responseType: 'text'
           });
     }

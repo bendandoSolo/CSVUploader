@@ -32,7 +32,7 @@ const CSVUploader = () => {
     }
 
     const testService = async ()  => {
-        let response = await TestAPI();
+        let response = await TestAPI({URL: API_URL});
         if (response)
             alert(response.data);
         else    
@@ -42,32 +42,30 @@ const CSVUploader = () => {
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
     return (
-        <div>
-            <h1 className='font-bold text-2xl'>We want to use drop zone to import and pass the contents of a csv to a backend...</h1>
-            
-            <div {...getRootProps()}>
+        <>
+        <h1 className='font-bold text-2xl pb-5'>CSV File Uploader</h1>
+
+        <label htmlFor='backend-url'>Backend URL: </label>
+        <input id='backend-url' type='text' placeholder='https://localhost:7165/' 
+         onClick={()=> {alert('not implemented'); }}/>
+    <div {...getRootProps()}>
         <input {...getInputProps()} />
         {
-            // isDragActive ?
-            // <p>Drop the files here ...</p> :
-            <div className='border-red-600 border-4 p-32'> <p>Drag and Drop some files here, or click to select files</p></div>
-           
             
+            <div className='border-red-600 border-4 p-32'>{!isDragActive ? <p>Drag and Drop some files here, or click to select files</p> : <p>Dragging</p> }</div>
+
         }
-        </div>
-        <div className='border-emerald-600 border-2 p-32'>
-            {File ?
-                <>{JSON.stringify(File)}</> : <>Awaiting Data</>
-            }
-        </div>
+    </div>
+    <div className='border-emerald-600 border-2 p-32'>
+        {File ? <>{JSON.stringify(File)}</> : <>Awaiting Data</>}
+    </div>
 
-            <h2 className='font-bold text-5xl'>RoadMap</h2>
-
-            <h2>We want to be able to configure which backend we are passing the data to</h2>
-            <p>Need a field to import the url for upload</p>
-            <p>Need a drop down to specify the how the data will be passed...</p>
-            <button className='bg-green-500' onClick={testService}>Test service</button>
-        </div>
+        <h2 className='font-bold text-5xl'>RoadMap</h2>
+        <h2>We want to be able to configure which backend we are passing the data to</h2>
+        <p>Need a field to import the url for upload</p>
+        <p>Need a drop down to specify the how the data will be passed...</p>
+        <button className='bg-green-500' onClick={testService}>Test service</button>
+    </>
     );
 };
 
