@@ -1,17 +1,12 @@
 'use client'
-import React, {useCallback} from 'react'
+import React, {useState, useCallback} from 'react'
 import {useDropzone} from 'react-dropzone'
 
 const CSVUploader = () => {
 
+    const [File, setFile] = useState<string | ArrayBuffer | undefined>(undefined);
     const onDrop = useCallback((acceptedFiles: any) => {
-    //const onDrop = useCallback((acceptedFiles: any) => {
-        // Do something with the files
 
-       // console.log(acceptedFiles);
-        alert(acceptedFiles[0].name);
-        alert('one file at a time');
-        
         acceptedFiles.forEach((file: any) => {
             const reader = new FileReader()
     
@@ -21,6 +16,8 @@ const CSVUploader = () => {
             // Do whatever you want with the file contents
             const binaryStr = reader.result
             console.log(binaryStr)
+            if (binaryStr)
+                setFile(binaryStr);
              sendData(binaryStr);
             }
             reader.readAsText(file)
@@ -31,6 +28,9 @@ const CSVUploader = () => {
         alert('we want to send the data to the backend here...and move this to services folder');
     }
 
+    const testService = () => {
+        alert('we want to test the calling the API service here');
+    }
 
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
 
@@ -48,12 +48,18 @@ const CSVUploader = () => {
             
         }
         </div>
-        <div className='border-emerald-600 border-2 p-32'><p>Here we have a sections to display the data that we upload...</p></div>
+        <div className='border-emerald-600 border-2 p-32'>
+            {File ?
+                <>{JSON.stringify(File)}</> : <>Awaiting Data</>
+            }
+        </div>
 
             <h2 className='font-bold text-5xl'>RoadMap</h2>
 
             <h2>We want to be able to configure which backend we are passing the data to</h2>
-            <p></p>
+            <p>Need a field to import the url for upload</p>
+            <p>Need a drop down to specify the how the data will be passed...</p>
+            <button className='bg-green-500' onClick={testService}>Test service</button>
         </div>
     );
 };
