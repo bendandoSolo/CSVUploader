@@ -21,19 +21,22 @@ const CSVUploader = () => {
             console.log(binaryStr)
             if (binaryStr)
                 setFile(binaryStr);
-             sendDataToAPI(binaryStr);
+                sendDataToAPI(binaryStr);
             }
             reader.readAsText(file)
         })
     }, [])
 
     const sendDataToAPI = async (binaryStr: any) => {
-        await SendData({URL: API_URL, data: binaryStr});
-        alert('we want to send the data to the backend here...and move this to services folder');
+        const response = await SendData({URL: API_URL, data: binaryStr});
+            if (!!response)
+            alert( 'response: ' + response.data);
+        else    
+            alert('ERROR: no response');
     }
 
     const testService = async ()  => {
-        let response = await SendData({URL: API_URL, data: 'test data'});
+        const response = await SendData({URL: API_URL, data: 'test data'});
         if (!!response)
             alert('Response(should be test data): ' + response.data);
         else    
