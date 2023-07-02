@@ -33,15 +33,11 @@ const CSVUploader = () => {
     }
 
     const testService = async ()  => {
-        let response = await TestAPI({URL: API_URL});
-        if (response)
-            alert(response.data);
+        let response = await SendData({URL: API_URL, data: 'test data'});
+        if (!!response)
+            alert('Response(should be test data): ' + response.data);
         else    
             alert('ERROR: no response');
-    }
-
-    const testPostService = async ()  => {
-        SendData({URL: API_URL, data: 'test data'});
     }
 
     const {getRootProps, getInputProps, isDragActive} = useDropzone({onDrop})
@@ -64,11 +60,11 @@ const CSVUploader = () => {
         </div>
 
         <h2 className='font-bold text-5xl'>RoadMap</h2>
+        <h2>Work out why hot reloading is not working?</h2>
         <h2>We want to be able to configure which backend we are passing the data to</h2>
         <p>Need a field to import the url for upload</p>
         <p>Need a drop down to specify the how the data will be passed...</p>
         <button className='bg-green-500' onClick={testService}>Test service</button>
-        <button className='bg-green-500' onClick={testPostService}>Test post data service</button>
     </>
     );
 };
