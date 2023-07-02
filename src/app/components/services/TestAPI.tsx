@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const TestAPI = async ({URL}) => {
+export const TestAPI = async ({URL} : {URL: string}) => {
     try {
         return await axios.get(URL, {
             responseType: 'text'
